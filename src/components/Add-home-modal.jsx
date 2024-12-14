@@ -20,7 +20,7 @@ export default function AddHomeModal({ closeModal }) {
                     <div className="rounded-full bg-[#CFDDF175] p-3">
                         <RiHome6Line size={40} color="6D8BA3" />
                     </div>
-                    <p className="text-2xl">집 등록</p>
+                    <p className="text-2xl font-medium">집 등록</p>
                 </div>
                 <form
                     onSubmit={clickSubmit}
