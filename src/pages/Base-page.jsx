@@ -15,7 +15,7 @@ const ContentSection = () => {
 
 export default function BasePage() {
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex overflow-hidden">
             <LeftSidebar />
             <div className="flex flex-col flex-1 pl-80">
                 <Header />

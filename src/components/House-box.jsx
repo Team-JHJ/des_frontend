@@ -26,10 +26,10 @@ export default function HouseBox({
             <div className="w-full h-24 py-3 box-content">
                 <ul>
                     {menu.map(
-                        (item) =>
+                        (item, index) =>
                             item.value !== null && (
                                 <li
-                                    key={id}
+                                    key={index}
                                     className="flex w-full items-center gap-x-2"
                                 >
                                     <div
