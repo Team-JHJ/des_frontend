@@ -100,4 +100,12 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .confirm-btn {
+    @apply bg-[#CFDDF1] rounded border border-[#ACC7D9] hover:bg-[#C2D3E7];
+  }
+
+  .cancel-btn {
+    @apply bg-white rounded border border-[#D1D5DB] hover:bg-[#F1F2F4];
+  }
 }

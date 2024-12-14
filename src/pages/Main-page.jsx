@@ -2,8 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import HouseBox from '@/components/House-box.jsx'
+import AddHomeModal from '@/components/Add-home-modal.jsx'
 
 export default function MainPage() {
+    const [isModalVisible, setIsModalVisible] = useState(false)
     const [houseId, setHouseId] = useState('')
 
     const changeInput = (e) => {
@@ -14,9 +16,17 @@ export default function MainPage() {
         e.preventDefault()
     }
 
+    const modalOpen = () => {
+        setIsModalVisible(true)
+    }
+
+    const modalClose = () => {
+        setIsModalVisible(false)
+    }
+
     const exampleObj = [
         {
-            id: 1,
+            id: 100,
             homename: 'hanna_house',
             inverterFault: false,
             derFault: true,
@@ -24,7 +34,7 @@ export default function MainPage() {
             smartmeterFault: false,
         },
         {
-            id: 2,
+            id: 102,
             homename: 'jihyeok_house',
             inverterFault: true,
             derFault: true,
@@ -32,7 +42,7 @@ export default function MainPage() {
             smartmeterFault: false,
         },
         {
-            id: 3,
+            id: 103,
             homename: 'heeown_house',
             inverterFault: false,
             derFault: true,
@@ -40,7 +50,7 @@ export default function MainPage() {
             smartmeterFault: true,
         },
         {
-            id: 4,
+            id: 104,
             homename: 'dohyun_house',
             inverterFault: false,
             derFault: false,
@@ -48,7 +58,7 @@ export default function MainPage() {
             smartmeterFault: null,
         },
         {
-            id: 10,
+            id: 110,
             homename: 'jehyung',
             inverterFault: false,
             derFault: false,
@@ -56,7 +66,7 @@ export default function MainPage() {
             smartmeterFault: false,
         },
         {
-            id: 11,
+            id: 111,
             homename: 'jihyeok_house',
             inverterFault: false,
             derFault: false,
@@ -64,7 +74,7 @@ export default function MainPage() {
             smartmeterFault: false,
         },
         {
-            id: 12,
+            id: 112,
             homename: 'jihyeok_house',
             inverterFault: null,
             derFault: null,
@@ -72,7 +82,7 @@ export default function MainPage() {
             smartmeterFault: null,
         },
         {
-            id: 12,
+            id: 20,
             homename: 'jihyeok_house',
             inverterFault: null,
             derFault: null,
@@ -80,7 +90,7 @@ export default function MainPage() {
             smartmeterFault: null,
         },
         {
-            id: 12,
+            id: 21,
             homename: 'jihyeok_house',
             inverterFault: null,
             derFault: true,
@@ -88,7 +98,7 @@ export default function MainPage() {
             smartmeterFault: null,
         },
         {
-            id: 12,
+            id: 22,
             homename:
                 'jihyeok_housejihyeok_housejihyeok_housejihyeok_housejihyeok_house',
             inverterFault: null,
@@ -121,8 +131,11 @@ export default function MainPage() {
                     </button>
                 </form>
                 <div>
-                    <button className="h-full px-4 rounded-md border-[#D9D9D9] border-2 hover:bg-[#F1F2F4]">
-                        Add House
+                    <button
+                        className="h-full px-4 rounded-md border-[#D9D9D9] border-2 hover:bg-[#F1F2F4]"
+                        onClick={() => modalOpen()}
+                    >
+                        집 등록
                     </button>
                 </div>
             </div>
@@ -139,6 +152,7 @@ export default function MainPage() {
                     />
                 ))}
             </div>
+            {isModalVisible && <AddHomeModal closeModal={modalClose} />}
         </main>
     )
 }
