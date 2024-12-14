@@ -5,7 +5,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 export default function Footer() {
     return (
         <div className="h-32 bg-[#768496B0]">
-            <div className="container mx-auto h-full px-10 py-8 box-border text-white flex flex-col justify-center gap-5 text-center">
+            <div className="container mx-auto box-border flex h-full flex-col justify-center gap-5 px-10 py-8 text-center text-white">
                 <span>
                     <span>
                         Backend{' '}

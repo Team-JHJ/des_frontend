@@ -109,11 +109,11 @@ export default function MainPage() {
     ]
 
     return (
-        <main className="h-full flex flex-col">
-            <div className="h-[80px] border-b-2 border-[#ECECEE] flex justify-between px-6 py-4 text-lg">
+        <main className="flex h-full flex-col">
+            <div className="flex h-[80px] justify-between border-b-2 border-[#ECECEE] px-6 py-4 text-lg">
                 <form
                     onSubmit={(e) => searchHouse(e)}
-                    className="w-72 h-full relative border border-black rounded"
+                    className="relative h-full w-72 rounded border border-black"
                 >
                     <input
                         name="houseId"
@@ -121,25 +121,25 @@ export default function MainPage() {
                         placeholder="house search"
                         value={houseId}
                         onChange={(e) => changeInput(e)}
-                        className="w-[90%] h-full px-2 focus:outline-none rounded-l"
+                        className="h-full w-[90%] rounded-l px-2 focus:outline-none"
                     />
                     <button
                         type="submit"
-                        className="absolute top-0 right-2 h-full"
+                        className="absolute right-2 top-0 h-full"
                     >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </form>
                 <div>
                     <button
-                        className="h-full px-4 rounded-md border-[#D9D9D9] border-2 hover:bg-[#F1F2F4]"
+                        className="h-full rounded-md border-2 border-[#D9D9D9] px-4 hover:bg-[#F1F2F4]"
                         onClick={() => modalOpen()}
                     >
                         집 등록
                     </button>
                 </div>
             </div>
-            <div className="p-6 flex flex-wrap gap-y-4 gap-x-[2.65%]">
+            <div className="flex flex-wrap gap-x-[2.65%] gap-y-4 p-6">
                 {exampleObj.map((item, index) => (
                     <HouseBox
                         key={index}

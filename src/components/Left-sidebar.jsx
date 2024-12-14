@@ -6,10 +6,10 @@ export default function LeftSidebar() {
     const state = 'main'
 
     return (
-        <div className="w-80 fixed h-full left-0 top-0 bottom-0 border-r-2 border-[#ECECEE] flex flex-col text-lg">
-            <div className="px-8 border-b-2 h-28 flex items-center">
-                <div className="flex items-center gap-3 cursor-pointer">
-                    <img src={logo} alt="des logo" className="w-14 h-14" />
+        <div className="fixed bottom-0 left-0 top-0 flex h-full w-80 flex-col border-r-2 border-[#ECECEE] text-lg">
+            <div className="flex h-28 items-center border-b-2 px-8">
+                <div className="flex cursor-pointer items-center gap-3">
+                    <img src={logo} alt="des logo" className="h-14 w-14" />
                     <div>
                         <p className="text-2xl font-bold">DES</p>
                         <p className="text-sm text-[#A9A9A9FF]">
@@ -18,13 +18,13 @@ export default function LeftSidebar() {
                     </div>
                 </div>
             </div>
-            <nav className="px-7 pt-3 pb-6 flex-1 flex flex-col overflow-y-auto">
+            <nav className="flex flex-1 flex-col overflow-y-auto px-7 pb-6 pt-3">
                 {state === 'main' ? (
                     <ul>
-                        <li className="p-2 border-b border-[#D3D3D3FF]">
+                        <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
                                 to="/"
-                                className={`block rounded pb-2.5 pt-3.5 pl-3.5 hover:bg-[#C6D3E799] ${
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname === '/' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
                                 }`}
@@ -32,10 +32,10 @@ export default function LeftSidebar() {
                                 Home
                             </Link>
                         </li>
-                        <li className="p-2 border-b border-[#D3D3D3FF]">
+                        <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
                                 to="/vpp"
-                                className={`block rounded pb-2.5 pt-3.5 pl-3.5 hover:bg-[#C6D3E799] ${
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname === '/vpp' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
                                 }`}
@@ -46,10 +46,10 @@ export default function LeftSidebar() {
                     </ul>
                 ) : (
                     <ul>
-                        <li className="p-2 border-b border-[#D3D3D3FF]">
+                        <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
                                 to="/"
-                                className={`block rounded pb-2.5 pt-3.5 pl-3.5 hover:bg-[#C6D3E799] ${
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname === '/der' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
                                 }`}
@@ -57,10 +57,10 @@ export default function LeftSidebar() {
                                 DER
                             </Link>
                         </li>
-                        <li className="p-2 border-b border-[#D3D3D3FF]">
+                        <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
                                 to="/"
-                                className={`block rounded pb-2.5 pt-3.5 pl-3.5 hover:bg-[#C6D3E799] ${
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname === '/homeload' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
                                 }`}
@@ -68,10 +68,10 @@ export default function LeftSidebar() {
                                 Homeload
                             </Link>
                         </li>
-                        <li className="p-2 border-b border-[#D3D3D3FF]">
+                        <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
                                 to="/"
-                                className={`block rounded pb-2.5 pt-3.5 pl-3.5 hover:bg-[#C6D3E799] ${
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname === '/inverter' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
                                 }`}
@@ -79,10 +79,10 @@ export default function LeftSidebar() {
                                 Inverter
                             </Link>
                         </li>
-                        <li className="p-2 border-b border-[#D3D3D3FF]">
+                        <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
                                 to="/"
-                                className={`block rounded pb-2.5 pt-3.5 pl-3.5 hover:bg-[#C6D3E799] ${
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname === '/smartmeter' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
                                 }`}

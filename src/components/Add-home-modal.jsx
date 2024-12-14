@@ -17,14 +17,14 @@ export default function AddHomeModal({ closeModal }) {
         <BaseModal closeModal={closeModal}>
             <div>
                 <div className="flex items-center gap-4">
-                    <div className="p-3 bg-[#CFDDF175] rounded-full">
+                    <div className="rounded-full bg-[#CFDDF175] p-3">
                         <RiHome6Line size={40} color="6D8BA3" />
                     </div>
                     <p className="text-2xl">집 등록</p>
                 </div>
                 <form
                     onSubmit={clickSubmit}
-                    className="pl-20 flex flex-col gap-5"
+                    className="flex flex-col gap-5 pl-20"
                 >
                     <label htmlFor="houseName">
                         모니터링을 위한 집 추가를 위해 이름을 입력해주세요.
@@ -36,17 +36,17 @@ export default function AddHomeModal({ closeModal }) {
                         value={houseName}
                         onChange={(e) => setHouseName(e.target.value)}
                         required
-                        className="px-4 py-2 border border-black rounded text-lg w-[450px] focus:outline-none"
+                        className="w-[450px] rounded border border-black px-4 py-2 text-lg focus:outline-none"
                     />
-                    <div className=" flex justify-end gap-3">
+                    <div className="flex justify-end gap-3">
                         <button
                             type="button"
                             onClick={closeModal}
-                            className="px-8 py-2 cancel-btn"
+                            className="cancel-btn px-8 py-2"
                         >
                             취소
                         </button>
-                        <button type="submit" className="px-8 py-2 confirm-btn">
+                        <button type="submit" className="confirm-btn px-8 py-2">
                             추가
                         </button>
                     </div>

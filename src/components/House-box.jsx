@@ -16,14 +16,14 @@ export default function HouseBox({
     ]
 
     return (
-        <div className="p-4 w-[23%] grow-0 flex flex-col rounded-md text-lg cursor-pointer border-[#D9D9D9] border-2 overflow-hidden hover:bg-[#F1F2F4]">
-            <div className="flex items-center justify-center w-full">
+        <div className="flex w-[23%] grow-0 cursor-pointer flex-col overflow-hidden rounded-md border-2 border-[#D9D9D9] p-4 text-lg hover:bg-[#F1F2F4]">
+            <div className="flex w-full items-center justify-center">
                 <LuHouse className="mr-2" />
                 <p className="max-w-[80%] overflow-hidden overflow-ellipsis">
                     {name}
                 </p>
             </div>
-            <div className="w-full h-24 py-3 box-content">
+            <div className="box-content h-24 w-full py-3">
                 <ul>
                     {menu.map(
                         (item, index) =>

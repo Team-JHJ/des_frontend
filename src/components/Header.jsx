@@ -21,7 +21,7 @@ const TimeDisplay = () => {
     const second = String(date.getSeconds()).padStart(2, '0')
 
     return (
-        <div className="absolute top-5 right-8 text-[#797979]">
+        <div className="absolute right-8 top-5 text-[#797979]">
             <FontAwesomeIcon icon={faClock} />
             {` ${year}년 ${month}월 ${day}일 ${hour}:${minute}:${second}`}
         </div>
@@ -30,13 +30,13 @@ const TimeDisplay = () => {
 
 export default function Header() {
     return (
-        <div className="h-28 bg-[url('@/assets/img/header_bg.png')] bg-no-repeat bg-cover">
-            <div className="container mx-auto h-full px-10 py-6 relative">
+        <div className="h-28 bg-[url('@/assets/img/header_bg.png')] bg-cover bg-no-repeat">
+            <div className="container relative mx-auto h-full px-10 py-6">
                 <p className="text-3xl font-medium">제목</p>
                 {/* 시간 */}
                 <TimeDisplay />
                 {/* 헤더 관리 */}
-                <div className="absolute right-8 bottom-4">
+                <div className="absolute bottom-4 right-8">
                     <button></button>
                     <button></button>
                 </div>
