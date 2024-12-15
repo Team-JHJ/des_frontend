@@ -2,13 +2,22 @@ import Icon from '@/components/Icon.jsx'
 import { GoQuestion } from 'react-icons/go'
 import Tooltip from '@/components/Tooltip.jsx'
 import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function ListsBox({ dataList }) {
+    const navigate = useNavigate()
+    const pathname = useParams()
+    const house = pathname.houseId
+    const category = pathname.category
     const [tooltipState, setTooltipState] = useState(false)
     const list = dataList.list
 
     const focusTooltip = () => {
         setTooltipState((prev) => !prev)
+    }
+
+    const navigateEditPage = () => {
+        navigate(`/house/${house}/${category}/edit`, { state: { dataList } })
     }
 
     return (
@@ -28,7 +37,12 @@ export default function ListsBox({ dataList }) {
                 </div>
                 <div className="flex h-full items-center gap-3">
                     {dataList.type !== 'vpp' && (
-                        <button className="cancel-btn h-full px-4 text-sm">
+                        <button
+                            className="cancel-btn h-full px-4 text-sm"
+                            onClick={() => {
+                                navigateEditPage()
+                            }}
+                        >
                             관리
                         </button>
                     )}

@@ -1,4 +1,4 @@
-export default function Tooltip({ tooltipState }) {
+export default function Tooltip({ tooltipState, data }) {
     const example = [
         { name: 'generation_capacity', description: '발전 용량 정보(%)' },
         { name: 'generation_capacity', description: '발전 용량 정보(%)' },
@@ -20,14 +20,25 @@ export default function Tooltip({ tooltipState }) {
             {/* 설명 부분 div */}
             <div className="flex flex-col">
                 {/*<p>제목</p>*/}
-                {example.map((item, index) => (
-                    <div className="whitespace-nowrap" key={index}>
-                        • <span className="font-medium">{item.name}</span> :{' '}
-                        <span className="text-sm text-[#909090]">
-                            {item.description}
-                        </span>
-                    </div>
-                ))}
+                {data
+                    ? data.map((item, index) => (
+                          <div className="whitespace-nowrap" key={index}>
+                              • <span className="font-medium">{item.name}</span>{' '}
+                              :{' '}
+                              <span className="text-sm text-[#909090]">
+                                  {item.description}
+                              </span>
+                          </div>
+                      ))
+                    : example.map((item, index) => (
+                          <div className="whitespace-nowrap" key={index}>
+                              • <span className="font-medium">{item.name}</span>{' '}
+                              :{' '}
+                              <span className="text-sm text-[#909090]">
+                                  {item.description}
+                              </span>
+                          </div>
+                      ))}
             </div>
         </div>
     )

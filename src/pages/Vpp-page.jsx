@@ -131,10 +131,8 @@ export default function VppPage() {
         let result = []
         example.map((item) => {
             const prevData = { ...item, ['name']: 'vpp', ['type']: 'vpp' }
-            console.log(prevData)
             result.push(prevData)
         })
-        console.log(result)
         setDataList(result)
     }
 
