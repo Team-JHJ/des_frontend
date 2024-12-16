@@ -73,17 +73,13 @@
 
 @layer base {
   /* Pretendard 폰트 설정 */
-  @font-face {
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-display: swap;
-    src: url('https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Variable.woff2') format('woff2-variations');
-    font-weight: 100 900;
-  }
-
-  html {
-    font-family: "Pretendard", sans-serif;
-  }
+  /*@font-face {*/
+  /*  font-family: 'Pretendard';*/
+  /*  font-style: normal;*/
+  /*  font-display: swap;*/
+  /*  src: url('https://cdn.jsdelivr.net/gh/fonts-archive/Pretendard/Pretendard-Variable.woff2') format('woff2-variations');*/
+  /*  font-weight: 100 900;*/
+  /*}*/
 
   body {
     @apply w-full overflow-x-hidden;

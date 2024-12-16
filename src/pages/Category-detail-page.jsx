@@ -275,7 +275,7 @@ export default function CategoryDetailPage() {
     return (
         <div className="flex h-full flex-col">
             <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
-                <p className="text-2xl font-semibold">{category}</p>
+                <p className="text-2xl font-bold">{category}</p>
                 <div className="flex gap-3">
                     <form
                         action=""

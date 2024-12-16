@@ -143,7 +143,7 @@ export default function VppPage() {
     return (
         <main className="flex h-full flex-col overflow-hidden">
             <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
-                <p className="text-2xl font-semibold">VPP</p>
+                <p className="text-2xl font-bold">VPP</p>
                 <div className="flex gap-3">
                     <form
                         action=""

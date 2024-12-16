@@ -18,7 +18,7 @@ export default function ListEditPage() {
     return (
         <div className="flex h-full flex-col overflow-hidden">
             <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
-                <p className="text-2xl font-semibold">{category}</p>
+                <p className="text-2xl font-bold">{category}</p>
                 <div className="flex gap-3">
                     <div
                         className="relative z-20 my-auto cursor-pointer"

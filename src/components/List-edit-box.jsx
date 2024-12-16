@@ -42,7 +42,7 @@ export default function ListEditBox({ dataList }) {
                 <div className="flex h-12 items-center justify-between rounded-t border-b border-[#D9D9D9] bg-[#F3F3F3] px-4 py-2.5">
                     <div className="flex items-center gap-1">
                         <Icon menu={`${dataList.type}`} size={23} />
-                        <p className="text-xl font-semibold">{dataList.name}</p>
+                        <p className="text-xl font-bold">{dataList.name}</p>
                         <div
                             className={`mx-1 h-4 w-4 rounded-full ${dataList.isFault ? 'bg-[#FF3B30]' : 'bg-[#007AFF]'}`}
                         />
@@ -110,7 +110,7 @@ export default function ListEditBox({ dataList }) {
                                 onChange={(e) =>
                                     setInputValue(e.currentTarget.value)
                                 }
-                                className="w-5 flex-1 rounded border border-[#767676] px-2 text-right text-3xl font-semibold"
+                                className="w-5 flex-1 rounded border border-[#767676] px-2 text-right text-3xl font-bold"
                             />
                             <p
                                 className={`text-xl ${item.column_description.match(/\((.*?)\)/) ? 'block' : 'hidden'}`}
