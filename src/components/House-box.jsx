@@ -1,5 +1,7 @@
 import { LuHouse } from 'react-icons/lu'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setHouse } from '@/store/house-slice.js'
 
 export default function HouseBox({
     id,
@@ -10,6 +12,7 @@ export default function HouseBox({
     smartmeter,
 }) {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const menu = [
         { key: 'der', value: der },
         { key: 'homeload', value: homeload },
@@ -19,6 +22,7 @@ export default function HouseBox({
 
     // 해당 집 정보페이지로 이동
     const navigateHouse = (id) => {
+        dispatch(setHouse({ houseId: id, houseName: name }))
         navigate(`/house/${id}/der`)
     }
 
@@ -37,7 +41,7 @@ export default function HouseBox({
                 <ul>
                     {menu.map(
                         (item, index) =>
-                            item.value !== null && (
+                            item.value !== undefined && (
                                 <li
                                     key={index}
                                     className="flex w-full items-center gap-x-2"
