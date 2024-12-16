@@ -6,20 +6,27 @@ import { useEffect, useState } from 'react'
 import AddListModal from '@/components/Add-list-modal.jsx'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import ListsBox from '@/components/List-box.jsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { setHouse } from '@/store/house-slice.js'
+import listAPI from '@/api/list.js'
+import Loading from '@/components/Loading.jsx'
 
 export default function CategoryDetailPage() {
     const navigate = useNavigate()
+    const houseId = useSelector((state) => state.houseSlice.houseId)
+    // console.log(houseId)
+    const dispatch = useDispatch()
     const location = useLocation().pathname
-    // console.log(location)
-    // const path = location.split('/')
     const pathname = useParams()
     const category = pathname.category
-    // console.log()
+    // const houseId = pathname.houseId
 
     const [categoryName, setCategoryName] = useState('')
     const [tooltipState, setTooltipState] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [dataList, setDataList] = useState([])
+    const [description, setDescription] = useState([])
 
     const changeInput = (e) => {
         setCategoryName(e.target.value)
@@ -251,21 +258,46 @@ export default function CategoryDetailPage() {
         },
     ]
 
-    // 데이터 처리
-    const processData = (example) => {
-        let result = []
-        example.map((item) => {
-            const prevData = { ...item, ['name']: 'vpp', ['type']: 'vpp' }
-            // console.log(prevData)
-            result.push(prevData)
-        })
-        // console.log(result)
-        setDataList(result)
+    // // 데이터 처리
+    // const processData = (example) => {
+    //     let result = []
+    //     example.map((item) => {
+    //         const prevData = { ...item, ['name']: 'vpp', ['type']: 'vpp' }
+    //         // console.log(prevData)
+    //         result.push(prevData)
+    //     })
+    //     // console.log(result)
+    //     setDataList(result)
+    // }
+
+    const getList = async (homeId, category) => {
+        try {
+            setIsLoading(true)
+            const response = await listAPI.getList(homeId, category)
+            setDataList(response.data.columns)
+            setDescription(response.data.category)
+            console.log(response.data.columns)
+            setIsLoading(false)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     useEffect(() => {
-        processData(exampleObj)
+        if (houseId === null) {
+            getList(pathname.houseId, category)
+        } else {
+            getList(houseId, category)
+        }
+        // console.log(dataList)
+        console.log(dataList.map((data) => data.name))
     }, [])
+
+    useEffect(() => {
+        getList(houseId, category)
+        // dispatch(setHouse({ houseId, houseName }))
+        // processData(exampleObj)
+    }, [category, houseId])
 
     // parameter가 바뀌면 입력한 값 초기화
     useEffect(() => {
@@ -274,51 +306,60 @@ export default function CategoryDetailPage() {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
-                <p className="text-2xl font-bold">{category}</p>
-                <div className="flex gap-3">
-                    <form
-                        action=""
-                        className="relative w-56 rounded border border-black"
-                    >
-                        <input
-                            type="text"
-                            name="vppDetail"
-                            placeholder={`${category} search`}
-                            value={categoryName}
-                            onChange={(e) => changeInput(e)}
-                            className="w-[88%] rounded-l px-2 py-1 focus:outline-none"
-                        />
-                        <button
-                            type="submit"
-                            className="absolute right-2 top-0 h-full"
-                        >
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </form>
-                    <button
-                        className="rounded-md border-2 border-[#D9D9D9] px-4 hover:bg-[#F1F2F4]"
-                        onClick={() => modalOpen()}
-                    >
-                        {category} 추가
-                    </button>
-                    <div
-                        className="relative my-auto cursor-pointer"
-                        // 마우스 올리면 나타나고 내리면 사라지게
-                        // onMouseOver={focuseTooltip}
-                        // onMouseOut={focuseTooltip}
-                        onClick={focusTooltip}
-                    >
-                        <GoQuestion size={26} />
-                        <Tooltip tooltipState={tooltipState} />
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <>
+                    <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
+                        <p className="text-2xl font-bold">{category}</p>
+                        <div className="flex gap-3">
+                            <form
+                                action=""
+                                className="relative w-56 rounded border border-black"
+                            >
+                                <input
+                                    type="text"
+                                    name="vppDetail"
+                                    placeholder={`${category} search`}
+                                    value={categoryName}
+                                    onChange={(e) => changeInput(e)}
+                                    className="w-[88%] rounded-l px-2 py-1 focus:outline-none"
+                                />
+                                <button
+                                    type="submit"
+                                    className="absolute right-2 top-0 h-full"
+                                >
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                </button>
+                            </form>
+                            <button
+                                className="rounded-md border-2 border-[#D9D9D9] px-4 hover:bg-[#F1F2F4]"
+                                onClick={() => modalOpen()}
+                            >
+                                {category} 추가
+                            </button>
+                            <div
+                                className="relative my-auto cursor-pointer"
+                                // 마우스 올리면 나타나고 내리면 사라지게
+                                // onMouseOver={focuseTooltip}
+                                // onMouseOut={focuseTooltip}
+                                onClick={focusTooltip}
+                            >
+                                <GoQuestion size={26} />
+                                <Tooltip
+                                    tooltipState={tooltipState}
+                                    data={description}
+                                />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div className="flex flex-col gap-6 p-6">
-                {exampleObj.map((item, i) => (
-                    <ListsBox dataList={item} key={i} />
-                ))}
-            </div>
+                    <div className="flex flex-col gap-6 p-6">
+                        {dataList.map((item, i) => (
+                            <ListsBox dataList={item} key={i} />
+                        ))}
+                    </div>
+                </>
+            )}
             {isModalVisible && <AddListModal closeModal={modalClose} />}
         </div>
     )

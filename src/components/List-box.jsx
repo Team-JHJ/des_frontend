@@ -10,14 +10,25 @@ export default function ListsBox({ dataList }) {
     const house = pathname.houseId
     const category = pathname.category
     const [tooltipState, setTooltipState] = useState(false)
-    const list = dataList.list
+    const list = dataList.details
 
     const focusTooltip = () => {
         setTooltipState((prev) => !prev)
     }
 
+    const description = list.map(
+        (item) =>
+            new Object({
+                name: item.name,
+                description: item.description,
+            }),
+    )
+
     const navigateEditPage = () => {
-        navigate(`/house/${house}/${category}/edit`, { state: { dataList } })
+        navigate(`/house/${house}/${category}/edit`, {
+            state: { dataList },
+            // replace: true,
+        })
     }
 
     return (
@@ -54,11 +65,14 @@ export default function ListsBox({ dataList }) {
                         onClick={focusTooltip}
                     >
                         <GoQuestion size={26} />
-                        <Tooltip tooltipState={tooltipState} />
+                        <Tooltip
+                            tooltipState={tooltipState}
+                            data={description}
+                        />
                     </div>
                 </div>
             </div>
-            <div className="flex flex-wrap justify-between px-4 py-3">
+            <div className="flex flex-wrap gap-[2%] px-4 py-3">
                 {list.map((item, index) => (
                     <div
                         key={index}
@@ -75,12 +89,12 @@ export default function ListsBox({ dataList }) {
                         }`}
                     >
                         <p className="min-w-[20%] overflow-hidden overflow-ellipsis text-xl font-medium text-[#767676]">
-                            {item.column_name}
+                            {item.name}
                         </p>
                         <div className="flex items-baseline gap-1">
                             <p
                                 className={`text-nowrap text-3xl font-bold ${
-                                    Number.isInteger(item.column_value)
+                                    Number.isInteger(item.value)
                                         ? index % 3 === 0
                                             ? 'text-[#32ADE6]'
                                             : index % 3 === 1
@@ -91,13 +105,13 @@ export default function ListsBox({ dataList }) {
                                         : ''
                                 }`}
                             >
-                                {item.column_value}
+                                {typeof item.value === 'boolean'
+                                    ? item.value.toString()
+                                    : item.value}
                             </p>
                             <p className="text-xl">
-                                {item.column_description.match(/\((.*?)\)/)
-                                    ? item.column_description.match(
-                                          /\((.*?)\)/,
-                                      )[1]
+                                {item.description.match(/\((.*?)\)/)
+                                    ? item.description.match(/\((.*?)\)/)[1]
                                     : null}
                             </p>
                         </div>

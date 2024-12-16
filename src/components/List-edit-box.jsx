@@ -2,38 +2,62 @@ import Icon from '@/components/Icon.jsx'
 import { GoQuestion } from 'react-icons/go'
 import Tooltip from '@/components/Tooltip.jsx'
 import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import listAPI from '@/api/list.js'
 
 export default function ListEditBox({ dataList }) {
-    const [inputValue, setInputValue] = useState(dataList.list)
+    const navigate = useNavigate()
+    const params = useParams()
+    const category = params.category
+    const houseId = params.houseId
+    const [inputValue, setInputValue] = useState(dataList.details)
     const [tooltipState, setTooltipState] = useState(false)
+    const list = dataList.details
+    console.log(dataList.id)
 
     const focusTooltip = () => {
         setTooltipState((prev) => !prev)
     }
 
-    console.log(inputValue)
+    // console.log(dataList)
 
     // const description = dataList.list.map(
     //     (item, index) => item.column_description,
     // )
 
-    const description = dataList.list.map(
-        (item, index) =>
+    console.log(typeof inputValue[2].value)
+    // console.log(inputValue)
+
+    const description = list.map(
+        (item) =>
             new Object({
-                name: item.column_name,
-                description: item.column_description,
+                name: item.name,
+                description: item.description,
             }),
     )
 
-    const description2 = dataList.list.map((item, index) => item.column_name)
-
-    console.log(description)
-    console.log(description2)
-
-    // console.log(dataList)
+    const changeInputValue = (e, index) => {
+        const data = [...inputValue]
+        data[index].value = e.target.value
+        setInputValue(data)
+    }
 
     const confirmEdit = (e) => {
         e.preventDefault()
+    }
+
+    const deleteData = async () => {
+        // console.log(list)
+        try {
+            const response = await listAPI.deleteList({
+                category: category,
+                id: dataList.id,
+            })
+            console.log(response.data)
+            navigate(-1)
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -56,9 +80,9 @@ export default function ListEditBox({ dataList }) {
                         <button
                             type="button"
                             className="cancel-btn h-full px-4 text-sm"
-                            // onClick={() => {
-                            //
-                            // }}
+                            onClick={() => {
+                                deleteData()
+                            }}
                         >
                             삭제
                         </button>
@@ -83,42 +107,38 @@ export default function ListEditBox({ dataList }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap justify-between px-4 py-3">
-                    {dataList.list.map((item, index) => (
+                <div className="flex flex-wrap gap-[2%] px-4 py-3">
+                    {list.map((item, index) => (
                         <div
                             key={index}
                             className={`flex w-[32%] items-baseline justify-between gap-3 overflow-hidden border-b border-[#C7C7CC] px-3 pb-1 pt-3 ${
-                                dataList.list.length % 3 === 0 &&
-                                index >= dataList.list.length - 3
+                                list.length % 3 === 0 &&
+                                index >= list.length - 3
                                     ? 'border-b-0 pb-0'
-                                    : dataList.list.length % 3 === 2 &&
-                                        index >= dataList.list.length - 2
+                                    : list.length % 3 === 2 &&
+                                        index >= list.length - 2
                                       ? 'border-b-0 pb-0'
-                                      : dataList.list.length % 3 === 1 &&
-                                          index >= dataList.list.length - 1
+                                      : list.length % 3 === 1 &&
+                                          index >= list.length - 1
                                         ? 'border-b-0 pb-0'
                                         : ''
                             }`}
                         >
                             <p className="text-xl font-medium text-[#767676]">
-                                {item.column_name}
+                                {item.name}
                             </p>
                             <input
-                                type=""
+                                type="" /*{typeof inputValue[index].value}*/
                                 name="value"
-                                value={inputValue[index].column_value}
-                                onChange={(e) =>
-                                    setInputValue(e.currentTarget.value)
-                                }
+                                value={inputValue[index].value}
+                                onChange={(e) => changeInputValue(e, index)}
                                 className="w-5 flex-1 rounded border border-[#767676] px-2 text-right text-3xl font-bold"
                             />
                             <p
-                                className={`text-xl ${item.column_description.match(/\((.*?)\)/) ? 'block' : 'hidden'}`}
+                                className={`text-xl ${item.description.match(/\((.*?)\)/) ? 'block' : 'hidden'}`}
                             >
-                                {item.column_description.match(/\((.*?)\)/)
-                                    ? item.column_description.match(
-                                          /\((.*?)\)/,
-                                      )[1]
+                                {item.description.match(/\((.*?)\)/)
+                                    ? item.description.match(/\((.*?)\)/)[1]
                                     : null}
                             </p>
                         </div>
