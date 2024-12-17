@@ -21,6 +21,7 @@ export default function MainPage() {
 
     // const houseIde = useSelector((state) => state.houseSlice.houseId)
     // console.log(houseIde)
+    console.log('다시')
 
     const changeInput = (e) => {
         setHouseId(e.target.value)
@@ -139,6 +140,8 @@ export default function MainPage() {
         }
     }
 
+    const updateHouse = () => [getHouse()]
+
     useEffect(() => {
         dispatch(setHouse({ houseId: null, houseName: null }))
         getHouse()
@@ -213,7 +216,9 @@ export default function MainPage() {
                     </div>
                 </>
             )}
-            {isModalVisible && <AddHomeModal closeModal={modalClose} />}
+            {isModalVisible && (
+                <AddHomeModal closeModal={modalClose} onSuccess={updateHouse} />
+            )}
         </main>
     )
 }
