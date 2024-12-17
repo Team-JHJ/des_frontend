@@ -13,7 +13,11 @@ export default function VppPage() {
     const [vppDetail, setVppDetail] = useState('')
     const [tooltipState, setTooltipState] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [dataList, setDataList] = useState({})
+    const [dataList, setDataList] = useState({
+        columns: {
+            details: [], // 필요한 초기 구조 설정
+        },
+    })
 
     const changeInput = (e) => {
         setVppDetail(e.target.value)
@@ -22,114 +26,6 @@ export default function VppPage() {
     const focusTooltip = () => {
         setTooltipState((prev) => !prev)
     }
-
-    const exampleObj = [
-        {
-            id: 1,
-            name: 'VPP',
-            type: 'vpp',
-            battery: null,
-            isFault: false,
-            list_description: '태양광 발전 시스템 설명...',
-            list: [
-                {
-                    id: 1,
-                    column_name: 'aggregatedCapacity',
-                    column_description: '발전 용량 정보(%)',
-                    column_value: 24,
-                },
-                {
-                    id: 2,
-                    column_name: 'availableStorage',
-                    column_description: '발전  효율(kWh)',
-                    column_value: 200,
-                },
-                {
-                    id: 3,
-                    column_name: 'batteryEfficiency',
-                    column_description: '발전  효율(ml)',
-                    column_value: 9,
-                },
-                {
-                    id: 4,
-                    column_name: 'dispatchableEnergy',
-                    column_description: '발전  효율',
-                    column_value: '2025-01-2',
-                },
-                {
-                    id: 5,
-                    column_name: 'capacityFactor',
-                    column_description: '발전  효율',
-                    column_value: 400,
-                },
-                {
-                    id: 6,
-                    column_name: 'forecastedLoad',
-                    column_description: '발전  효율',
-                    column_value: '12PM',
-                },
-                {
-                    id: 7,
-                    column_name: 'responseTime',
-                    column_description: '발전  효율',
-                    column_value: 500,
-                },
-            ],
-        },
-        {
-            id: 1,
-            list_name: 'VPP',
-            type: 'vpp',
-            name: 'vpp',
-            battery: null,
-            isFault: true,
-            list_description: '태양광 발전 시스템 설명...',
-            list: [
-                {
-                    id: 1,
-                    column_name: 'aggregatedCapacity',
-                    column_description: '발전 용량 정보(%)',
-                    column_value: 90,
-                },
-                {
-                    id: 2,
-                    column_name: 'availableStorage',
-                    column_description: '발전  효율(kWh)',
-                    column_value: 20,
-                },
-                {
-                    id: 3,
-                    column_name: 'batteryEfficiency',
-                    column_description: '발전  효율(ml)',
-                    column_value: 90,
-                },
-                {
-                    id: 4,
-                    column_name: 'dispatchableEnergy',
-                    column_description: '발전  효율',
-                    column_value: '40.712776, -74.005974',
-                },
-                {
-                    id: 5,
-                    column_name: 'capacityFactor',
-                    column_description: '발전  효율',
-                    column_value: 'Yes',
-                },
-                {
-                    id: 6,
-                    column_name: 'forecastedLoad',
-                    column_description: '발전  효율',
-                    column_value: 120,
-                },
-                {
-                    id: 7,
-                    column_name: 'responseTime',
-                    column_description: '발전  효율',
-                    column_value: 'No',
-                },
-            ],
-        },
-    ]
 
     // 데이터 처리
     const processData = (example) => {
@@ -145,23 +41,33 @@ export default function VppPage() {
         }
 
         setDataList(data)
+        setIsLoading(false)
     }
 
     const getVpp = async () => {
         try {
             setIsLoading(true)
             const response = await vppAPI.getVppList(1)
-            console.log(response.data)
+            // console.log(response.data)
             processData(response.data)
-            setIsLoading(false)
+            // setIsLoading(false)
         } catch (error) {
             console.error(error)
+            setIsLoading(false)
+            alert('오류가 발생했습니다. 다시 시도해주세요!')
         }
     }
 
     useEffect(() => {
         getVpp()
     }, [])
+
+    // useEffect(() => {
+    //     if (dataList?.columns?.details) {
+    //         // details까지 있는지 확인
+    //         setIsLoading(false)
+    //     }
+    // }, [dataList])
 
     return (
         <main className="flex h-full flex-col overflow-hidden">
