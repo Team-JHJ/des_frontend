@@ -13,7 +13,7 @@ const houseAPI = {
 
     // 집 이름 수정하기
     updateHouse: (homeId, homeName) => {
-        axiosInstance.get(`/api/home/${homeId}`, {
+        axiosInstance.put(`/api/home/${homeId}`, null, {
             params: {
                 homeId: homeId,
                 homeName: homeName,
@@ -23,7 +23,12 @@ const houseAPI = {
 
     // 집 삭제하기
     deleteHouse: (homeId, homeName) => {
-        return axiosInstance.delete('/api/home', { homeId, homeName })
+        return axiosInstance.delete('/api/home', {
+            params: {
+                homeId: homeId,
+                homeName: homeName,
+            },
+        })
     },
 }
 
