@@ -1,5 +1,6 @@
 import logo from '@/assets/img/deslogo.png'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function LeftSidebar() {
     const navigate = useNavigate()
@@ -7,6 +8,7 @@ export default function LeftSidebar() {
     // const path = location.split('/')
     const pathname = useParams()
     // console.log(pathname)
+    const houseId = useSelector((state) => state.houseSlice.houseId)
 
     const navigateMain = () => {
         navigate('/')
@@ -58,7 +60,7 @@ export default function LeftSidebar() {
                     <ul>
                         <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
-                                to="/house/102/der"
+                                to={`/house/${houseId}/der`}
                                 className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname.category === 'der' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
@@ -69,7 +71,7 @@ export default function LeftSidebar() {
                         </li>
                         <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
-                                to="/house/102/homeload"
+                                to={`/house/${houseId}/homeload`}
                                 className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname.category === 'homeload' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
@@ -80,7 +82,7 @@ export default function LeftSidebar() {
                         </li>
                         <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
-                                to="/house/102/inverter"
+                                to={`/house/${houseId}/inverter`}
                                 className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname.category === 'inverter' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'
@@ -91,7 +93,7 @@ export default function LeftSidebar() {
                         </li>
                         <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
-                                to="/house/102/smartmeter"
+                                to={`/house/${houseId}/smartmeter`}
                                 className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     pathname.category === 'smartmeter' &&
                                     'border-l-8 border-l-[#B0C4DE] pl-2'

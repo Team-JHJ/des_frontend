@@ -84,6 +84,18 @@
   body {
     @apply w-full overflow-x-hidden;
   }
+
+  /* input 요소 type="number"이면 화살표 없게 */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance:none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance:textfield;
+  }
 }
 
 @layer utilities {
@@ -98,10 +110,10 @@
   }
 
   .confirm-btn {
-    @apply bg-[#CFDDF1] rounded border border-[#ACC7D9] hover:bg-[#C2D3E7];
+    @apply bg-[#CFDDF1] rounded-md border border-[#ACC7D9] hover:bg-[#C2D3E7];
   }
 
   .cancel-btn {
-    @apply bg-white rounded border border-[#D1D5DB] hover:bg-[#F1F2F4];
+    @apply bg-white rounded-md border border-[#D1D5DB] hover:bg-[#F1F2F4];
   }
 }
