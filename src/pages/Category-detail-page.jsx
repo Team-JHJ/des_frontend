@@ -283,6 +283,10 @@ export default function CategoryDetailPage() {
         }
     }
 
+    const updateList = async () => {
+        await getList(houseId, category)
+    }
+
     useEffect(() => {
         if (houseId === null) {
             getList(pathname.houseId, category)
@@ -360,7 +364,13 @@ export default function CategoryDetailPage() {
                     </div>
                 </>
             )}
-            {isModalVisible && <AddListModal closeModal={modalClose} />}
+            {isModalVisible && (
+                <AddListModal
+                    closeModal={modalClose}
+                    category={category}
+                    onSuccess={updateList}
+                />
+            )}
         </div>
     )
 }

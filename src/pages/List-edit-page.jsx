@@ -20,16 +20,16 @@ export default function ListEditPage() {
             <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
                 <p className="text-2xl font-bold">{category}</p>
                 <div className="flex gap-3">
-                    <div
-                        className="relative z-20 my-auto cursor-pointer"
-                        // 마우스 올리면 나타나고 내리면 사라지게
-                        // onMouseOver={focuseTooltip}
-                        // onMouseOut={focuseTooltip}
-                        onClick={focusTooltip}
-                    >
-                        <GoQuestion size={26} />
-                        <Tooltip tooltipState={tooltipState} />
-                    </div>
+                    {/*<div*/}
+                    {/*    className="relative z-20 my-auto cursor-pointer"*/}
+                    {/*    // 마우스 올리면 나타나고 내리면 사라지게*/}
+                    {/*    // onMouseOver={focuseTooltip}*/}
+                    {/*    // onMouseOut={focuseTooltip}*/}
+                    {/*    onClick={focusTooltip}*/}
+                    {/*>*/}
+                    {/*    <GoQuestion size={26} />*/}
+                    {/*    <Tooltip tooltipState={tooltipState} />*/}
+                    {/*</div>*/}
                 </div>
             </div>
             <div className="p-6">

@@ -1,33 +1,70 @@
 import BaseModal from '@/components/Base-modal.jsx'
 import { FaRegRectangleList } from 'react-icons/fa6'
 import { useState } from 'react'
+import listAPI from '@/api/list.js'
+import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-export default function AddListModal({ closeModal }) {
-    const derList = ['Solar', 'Wind', 'EV Battery', 'ESS']
+export default function AddListModal({ closeModal, category, onSuccess }) {
+    const choiceList = {
+        der: ['Solar', 'Wind', 'EV Battery', 'ESS'],
+        homeload: [
+            'HVAC',
+            'Lighting',
+            'EV Charger',
+            'Refrigerator',
+            'Washing Machine',
+            'Dishwasher',
+        ],
+        inverter: ['inverter'],
+        smartmeter: ['smartmeter'],
+    }
+    const houseId = useSelector((state) => state.houseSlice.houseId)
+    // const category = useParams().category
     const [listName, setListName] = useState('')
-    const [category, setCategory] = useState('')
+    const [choiceCategory, setChoiceCategory] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const selectCategory = (e) => {
-        if (category && category === e.target.innerText) {
+        if (choiceCategory && choiceCategory === e.target.innerText) {
             // 카테고리를 선택했을 때 이미 선택한 카테고리이면 선택 해제
-            setCategory('')
+            setChoiceCategory('')
         } else {
             // 아니라면 해당 카테고리를 선택
-            setCategory(e.target.innerText)
+            setChoiceCategory(e.target.innerText)
+        }
+    }
+
+    const addList = async (houseId, category, listName, choiceCategory) => {
+        try {
+            setIsLoading(true)
+            const response = await listAPI.addList({
+                id: houseId,
+                category: category,
+                name: listName,
+                type: choiceCategory,
+            })
+            if (response.status === 200 || response.status === 201) {
+                onSuccess()
+            }
+            setTimeout(() => setIsLoading(false), 1000)
+            // 추가 요청처리 완료 후 모달창 닫기
+            closeModal()
+        } catch (error) {
+            console.error(error)
         }
     }
 
     const clickSubmit = (e) => {
-        if (!category) {
+        if (!choiceCategory) {
             // 카테고리를 선택하지 않은 경우
             alert('카테고리를 선택해주세요!')
             e.preventDefault()
         } else {
             e.preventDefault()
+            console.log(choiceCategory)
             // 추가 요청 처리
-            console.log('DER 추가 요청 처리중!')
-            // 추가 요청처리 완료 후 모달창 닫기
-            closeModal()
+            addList(houseId, category, listName, choiceCategory)
         }
     }
 
@@ -38,15 +75,15 @@ export default function AddListModal({ closeModal }) {
                     <div className="rounded-full bg-[#CFDDF175] p-3">
                         <FaRegRectangleList size={40} color="6D8BA3" />
                     </div>
-                    <p className="text-2xl font-medium">DER 등록</p>
+                    <p className="text-2xl font-medium">{category} 등록</p>
                 </div>
                 <div className="flex flex-col gap-3 pl-20">
-                    <p>추가하려는 DER을 클릭하고 이름을 입력해주세요.</p>
+                    <p>추가하려는 메뉴를 클릭하고 이름을 입력해주세요.</p>
                     <div className="flex w-[430px] flex-wrap justify-between gap-3">
-                        {derList.map((item, index) => (
+                        {choiceList[category].map((item, index) => (
                             <button
                                 key={index}
-                                className={`w-52 rounded border border-[#767676] py-2 text-xl font-medium text-[#767676] hover:bg-[#F1F2F4] ${category === item && 'bg-[#F1F2F4]'}`}
+                                className={`w-52 rounded border border-[#767676] py-2 text-xl font-medium text-[#767676] hover:bg-[#F1F2F4] ${choiceCategory === item && 'bg-[#F1F2F4]'}`}
                                 onClick={(e) => selectCategory(e)}
                             >
                                 {item}

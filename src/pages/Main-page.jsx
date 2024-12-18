@@ -140,7 +140,9 @@ export default function MainPage() {
         }
     }
 
-    const updateHouse = () => [getHouse()]
+    const updateHouse = async () => {
+        await getHouse()
+    }
 
     useEffect(() => {
         dispatch(setHouse({ houseId: null, houseName: null }))
