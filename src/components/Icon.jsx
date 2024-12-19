@@ -34,7 +34,7 @@ export default function Icon({ menu, size }) {
         <TbChargingPile size={size} />
     ) : menu === 'Dishwasher' ? (
         <CgSmartHomeWashMachine size={size} />
-    ) : menu === 'inverter' ? (
+    ) : menu === 'inverter' || menu === 'String' ? (
         <TbBatteryAutomotive size={size} />
     ) : menu === 'smartmeter' ? (
         <BsSpeedometer2 size={size} />

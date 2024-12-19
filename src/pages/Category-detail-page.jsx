@@ -275,8 +275,10 @@ export default function CategoryDetailPage() {
             setIsLoading(true)
             const response = await listAPI.getList(homeId, category)
             setDataList(response.data.columns)
+            // console.log(response.status)
+            console.log('데이터 불러오기')
             setDescription(response.data.category)
-            console.log(response.data.columns)
+            console.log(response.data)
             setIsLoading(false)
         } catch (error) {
             console.error(error)
@@ -287,15 +289,15 @@ export default function CategoryDetailPage() {
         await getList(houseId, category)
     }
 
-    useEffect(() => {
-        if (houseId === null) {
-            getList(pathname.houseId, category)
-        } else {
-            getList(houseId, category)
-        }
-        // console.log(dataList)
-        console.log(dataList.map((data) => data.name))
-    }, [])
+    // useEffect(() => {
+    //     if (houseId === null) {
+    //         getList(pathname.houseId, category)
+    //     } else {
+    //         getList(houseId, category)
+    //     }
+    //     // console.log(dataList)
+    //     console.log(dataList.map((data) => data.name))
+    // }, [])
 
     useEffect(() => {
         getList(houseId, category)

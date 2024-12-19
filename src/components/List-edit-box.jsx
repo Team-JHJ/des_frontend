@@ -11,9 +11,11 @@ export default function ListEditBox({ dataList }) {
     const category = params.category
     const houseId = params.houseId
     const [inputValue, setInputValue] = useState(dataList.details)
+    const [inputName, setInputName] = useState(dataList.name)
     const [tooltipState, setTooltipState] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const list = dataList.details
-    console.log(dataList.id)
+    // console.log(`id: ${dataList.id}`)
 
     const focusTooltip = () => {
         setTooltipState((prev) => !prev)
@@ -25,7 +27,7 @@ export default function ListEditBox({ dataList }) {
     //     (item, index) => item.column_description,
     // )
 
-    console.log(typeof inputValue[2].value)
+    // console.log(typeof inputValue[2].value)
     // console.log(inputValue)
 
     const description = list.map(
@@ -38,12 +40,65 @@ export default function ListEditBox({ dataList }) {
 
     const changeInputValue = (e, index) => {
         const data = [...inputValue]
-        data[index].value = e.target.value
+        // data[index].value = e.target.value
+        data[index].value =
+            e.target.type === 'radio'
+                ? e.target.value === 'true' // "true" 문자열을 boolean true로 변환
+                : e.target.value
         setInputValue(data)
+        // const data = { ...input }
+        // data.details[index].value = e.target.value
     }
 
-    const confirmEdit = (e) => {
+    const processData = () => {
+        const details = inputValue.map((item) => ({
+            [item.name]: item.value,
+        }))
+
+        const data = {
+            type: dataList.type
+                ? dataList.type
+                : category === 'inverter'
+                  ? 'Inverter'
+                  : 'smartmeter',
+            id: dataList.id,
+            isFault: dataList.isFault,
+            battery: dataList.battery,
+            ...Object.assign({}, ...details),
+            [`${category}Name`]: inputName,
+        }
+        // if (category === 'smartmeter') {
+        //     delete data.type
+        // }
+        console.log(data)
+        return data
+    }
+
+    const updateList = async () => {
+        try {
+            setIsLoading(true)
+            const data = processData()
+            const response = await listAPI.updateList({ category, data })
+            console.log(response.data)
+            setIsLoading(false)
+            navigate(`/house/${houseId}/${category}`)
+        } catch (error) {
+            console.error(error)
+            setIsLoading(false)
+        }
+    }
+
+    const confirmEdit = async (e) => {
         e.preventDefault()
+        // 리스트 내용 수정 요청
+        console.log('수정')
+        updateList()
+        // console.log(inputValue)
+        // try {
+        //     const response = await listAPI.updateList({ category, data })
+        // } catch (error) {
+        //     console.error(error)
+        // }
     }
 
     const deleteData = async () => {
@@ -66,7 +121,13 @@ export default function ListEditBox({ dataList }) {
                 <div className="flex h-12 items-center justify-between rounded-t border-b border-[#D9D9D9] bg-[#F3F3F3] px-4 py-2.5">
                     <div className="flex items-center gap-1">
                         <Icon menu={`${dataList.type}`} size={23} />
-                        <p className="text-xl font-bold">{dataList.name}</p>
+                        <input
+                            type=""
+                            value={inputName}
+                            onChange={(e) => setInputName(e.target.value)}
+                            className="rounded border border-[#767676] px-2 text-xl font-bold"
+                        />
+                        {/*<p className="text-xl font-bold">{dataList.name}</p>*/}
                         <div
                             className={`mx-1 h-4 w-4 rounded-full ${dataList.isFault ? 'bg-[#FF3B30]' : 'bg-[#007AFF]'}`}
                         />
@@ -127,13 +188,48 @@ export default function ListEditBox({ dataList }) {
                             <p className="text-xl font-medium text-[#767676]">
                                 {item.name}
                             </p>
-                            <input
-                                type="" /*{typeof inputValue[index].value}*/
-                                name="value"
-                                value={inputValue[index].value}
-                                onChange={(e) => changeInputValue(e, index)}
-                                className="w-5 flex-1 rounded border border-[#767676] px-2 text-right text-3xl font-bold"
-                            />
+                            {inputValue[index].typeof !== 'Boolean' ? (
+                                <input
+                                    type={`${inputValue[index].typeof === 'String' ? 'text' : inputValue[index].typeof === 'Integer' || inputValue[index].typeof === 'Float' ? 'number' : ''}`}
+                                    name="value"
+                                    value={inputValue[index].value ?? ''}
+                                    onChange={(e) => changeInputValue(e, index)}
+                                    className="w-5 flex-1 rounded border border-[#767676] px-2 text-right text-3xl font-bold"
+                                />
+                            ) : (
+                                <fieldset className="flex w-full justify-end gap-1.5 text-2xl">
+                                    <input
+                                        type="radio"
+                                        id="contactChoice1"
+                                        name={inputValue[index].name}
+                                        value="true"
+                                        // 현재 값이 true인지 확인
+                                        checked={
+                                            inputValue[index].value === true
+                                        }
+                                        onChange={(e) =>
+                                            changeInputValue(e, index)
+                                        }
+                                    />
+                                    <label htmlFor="contactChoice1">true</label>
+                                    <input
+                                        type="radio"
+                                        id="contactChoice2"
+                                        name={inputValue[index].name}
+                                        value="false"
+                                        // 현재 값이 false인지 확인
+                                        checked={
+                                            inputValue[index].value === false
+                                        }
+                                        onChange={(e) =>
+                                            changeInputValue(e, index)
+                                        }
+                                    />
+                                    <label htmlFor="contactChoice2">
+                                        false
+                                    </label>
+                                </fieldset>
+                            )}
                             <p
                                 className={`text-xl ${item.description.match(/\((.*?)\)/) ? 'block' : 'hidden'}`}
                             >
