@@ -64,7 +64,7 @@ export default function ListEditBox({ dataList }) {
         try {
             setIsLoading(true)
             const data = processData()
-            listAPI.updateList({ category, data })
+            await listAPI.updateList({ category, data })
             setIsLoading(false)
             navigate(`/house/${houseId}/${category}`)
         } catch (error) {
