@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-regular-svg-icons'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import houseAPI from '@/api/house.js'
 import LoadingScreen from '@/components/Loading-screen.jsx'
 import { setHouse } from '@/store/house-slice.js'
@@ -46,10 +46,8 @@ const EditMode = ({ id, name, editmode }) => {
     const deleteHouse = async () => {
         try {
             setIsLoading(true)
+            await houseAPI.deleteHouse(id, name)
             navigate('/')
-            const response = await houseAPI.deleteHouse(id, name)
-            console.log(response.status)
-            console.log('집 삭제')
             editmode('')
             setIsLoading(false)
         } catch (error) {
@@ -57,13 +55,13 @@ const EditMode = ({ id, name, editmode }) => {
         }
     }
 
-    const updateHouse = async () => {
+    const updateHouse = async (e) => {
+        e.preventDefault()
         try {
             setIsLoading(true)
             await houseAPI.updateHouse(id, inputName)
-            console.log('집 수정')
-            editmode('')
             dispatch(setHouse({ houseId: id, houseName: inputName }))
+            editmode('')
             setIsLoading(false)
         } catch (error) {
             console.error(error)
@@ -91,10 +89,7 @@ const EditMode = ({ id, name, editmode }) => {
                         >
                             집 삭제
                         </button>
-                        <button
-                            // onClick={() => updateHouse()}
-                            className="cancel-btn px-4 py-1"
-                        >
+                        <button className="cancel-btn px-4 py-1">
                             수정 완료
                         </button>
                     </div>
@@ -110,21 +105,13 @@ export default function Header() {
     const houseName = useSelector((state) => state.houseSlice.houseName)
     const location = useLocation()
     const [mode, setMode] = useState('')
-    // console.log(location.pathname)
+
     const title = houseName
         ? houseName
         : location.pathname === '/vpp'
           ? 'VPP'
           : 'DES'
-    console.log(houseId)
-    console.log(houseName)
-    console.log(mode)
 
-    // useEffect(() => {
-    //     setMode('')
-    // }, [houseId])
-    //
-    // console.log(mode)
     useEffect(() => {
         setMode('')
     }, [location.pathname])
