@@ -78,25 +78,25 @@ export default function VppPage() {
                     <div className="flex items-center justify-end border-b-2 border-[#ECECEE] px-6 py-3">
                         {/*<p className="text-2xl font-bold">VPP</p>*/}
                         <div className="flex gap-3">
-                            <form
-                                action=""
-                                className="relative w-56 rounded border border-black"
-                            >
-                                <input
-                                    type="text"
-                                    name="vppDetail"
-                                    placeholder="vpp search"
-                                    value={vppDetail}
-                                    onChange={(e) => changeInput(e)}
-                                    className="w-[88%] rounded-l px-2 py-1 focus:outline-none"
-                                />
-                                <button
-                                    type="submit"
-                                    className="absolute right-2 top-0 h-full"
-                                >
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                </button>
-                            </form>
+                            {/*<form*/}
+                            {/*    action=""*/}
+                            {/*    className="relative w-56 rounded border border-black"*/}
+                            {/*>*/}
+                            {/*    <input*/}
+                            {/*        type="text"*/}
+                            {/*        name="vppDetail"*/}
+                            {/*        placeholder="vpp search"*/}
+                            {/*        value={vppDetail}*/}
+                            {/*        onChange={(e) => changeInput(e)}*/}
+                            {/*        className="w-[88%] rounded-l px-2 py-1 focus:outline-none"*/}
+                            {/*    />*/}
+                            {/*    <button*/}
+                            {/*        type="submit"*/}
+                            {/*        className="absolute right-2 top-0 h-full"*/}
+                            {/*    >*/}
+                            {/*        <FontAwesomeIcon icon={faMagnifyingGlass} />*/}
+                            {/*    </button>*/}
+                            {/*</form>*/}
                             <div
                                 className="relative z-20 my-auto cursor-pointer"
                                 // 마우스 올리면 나타나고 내리면 사라지게

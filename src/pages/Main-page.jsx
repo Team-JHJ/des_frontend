@@ -137,6 +137,8 @@ export default function MainPage() {
             setIsLoading(false)
         } catch (error) {
             console.error(error)
+            setIsLoading(false)
+            alert(error)
         }
     }
 

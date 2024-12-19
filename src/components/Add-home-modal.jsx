@@ -12,8 +12,6 @@ export default function AddHomeModal({ closeModal, onSuccess }) {
         try {
             setIsLoading(true)
             const response = await houseAPI.addHouse(houseName)
-            // console.log(response.data)
-            // console.log(response.status)
             if (response.status === 200 || response.status === 201) {
                 onSuccess()
             }
