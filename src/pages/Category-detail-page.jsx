@@ -7,16 +7,15 @@ import AddListModal from '@/components/Add-list-modal.jsx'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import ListsBox from '@/components/List-box.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { setHouse } from '@/store/house-slice.js'
 import listAPI from '@/api/list.js'
 import Loading from '@/components/Loading.jsx'
 
 export default function CategoryDetailPage() {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const houseId = useSelector((state) => state.houseSlice.houseId)
     // console.log(houseId)
-    const dispatch = useDispatch()
-    const location = useLocation().pathname
+    // const dispatch = useDispatch()
+    // const location = useLocation().pathname
     const pathname = useParams()
     const category = pathname.category
     // const houseId = pathname.houseId
@@ -258,27 +257,12 @@ export default function CategoryDetailPage() {
         },
     ]
 
-    // // 데이터 처리
-    // const processData = (example) => {
-    //     let result = []
-    //     example.map((item) => {
-    //         const prevData = { ...item, ['name']: 'vpp', ['type']: 'vpp' }
-    //         // console.log(prevData)
-    //         result.push(prevData)
-    //     })
-    //     // console.log(result)
-    //     setDataList(result)
-    // }
-
     const getList = async (homeId, category) => {
         try {
             setIsLoading(true)
             const response = await listAPI.getList(homeId, category)
             setDataList(response.data.columns)
-            // console.log(response.status)
-            console.log('데이터 불러오기')
             setDescription(response.data.category)
-            console.log(response.data)
             setIsLoading(false)
         } catch (error) {
             console.error(error)
@@ -289,20 +273,8 @@ export default function CategoryDetailPage() {
         await getList(houseId, category)
     }
 
-    // useEffect(() => {
-    //     if (houseId === null) {
-    //         getList(pathname.houseId, category)
-    //     } else {
-    //         getList(houseId, category)
-    //     }
-    //     // console.log(dataList)
-    //     console.log(dataList.map((data) => data.name))
-    // }, [])
-
     useEffect(() => {
         getList(houseId, category)
-        // dispatch(setHouse({ houseId, houseName }))
-        // processData(exampleObj)
     }, [category, houseId])
 
     // parameter가 바뀌면 입력한 값 초기화

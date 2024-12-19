@@ -1,6 +1,4 @@
 import { useLocation, useParams } from 'react-router-dom'
-import { GoQuestion } from 'react-icons/go'
-import Tooltip from '@/components/Tooltip.jsx'
 import ListEditBox from '@/components/List-edit-box.jsx'
 import { useState } from 'react'
 

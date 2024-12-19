@@ -5,7 +5,7 @@ import HouseBox from '@/components/House-box.jsx'
 import AddHomeModal from '@/components/Add-home-modal.jsx'
 import houseAPI from '@/api/house.js'
 import Loading from '@/components/Loading.jsx'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setHouse } from '@/store/house-slice.js'
 
 export default function MainPage() {
@@ -19,10 +19,6 @@ export default function MainPage() {
     // 검색된 일치 집 목록
     const [searchHouseList, setSearchHouseList] = useState([])
 
-    // const houseIde = useSelector((state) => state.houseSlice.houseId)
-    // console.log(houseIde)
-    console.log('다시')
-
     const changeInput = (e) => {
         setHouseId(e.target.value)
         console.log(houseId)
@@ -30,6 +26,7 @@ export default function MainPage() {
 
     const searchHouse = () => {
         // e.preventDefault()
+        // 검색어를 포함하는 집 목록 배열로 저장
         const result = houseList.filter((house) => {
             return house.homename.includes(houseId)
         })
@@ -132,7 +129,6 @@ export default function MainPage() {
         try {
             setIsLoading(true)
             const response = await houseAPI.getHouse()
-            console.log(response.data)
             setHouseList(response.data)
             setIsLoading(false)
         } catch (error) {

@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { GoQuestion } from 'react-icons/go'
 import ListsBox from '@/components/List-box.jsx'
 import Tooltip from '@/components/Tooltip.jsx'
 import vppAPI from '@/api/vpp.js'
-import { useDispatch } from 'react-redux'
-import { setHouse } from '@/store/house-slice.js'
 import Loading from '@/components/Loading.jsx'
 
 export default function VppPage() {
@@ -48,9 +44,7 @@ export default function VppPage() {
         try {
             setIsLoading(true)
             const response = await vppAPI.getVppList(1)
-            // console.log(response.data)
             processData(response.data)
-            // setIsLoading(false)
         } catch (error) {
             console.error(error)
             setIsLoading(false)
@@ -61,13 +55,6 @@ export default function VppPage() {
     useEffect(() => {
         getVpp()
     }, [])
-
-    // useEffect(() => {
-    //     if (dataList?.columns?.details) {
-    //         // details까지 있는지 확인
-    //         setIsLoading(false)
-    //     }
-    // }, [dataList])
 
     return (
         <main className="flex h-full flex-col overflow-hidden">

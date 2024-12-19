@@ -15,20 +15,10 @@ export default function ListEditBox({ dataList }) {
     const [tooltipState, setTooltipState] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const list = dataList.details
-    // console.log(`id: ${dataList.id}`)
 
     const focusTooltip = () => {
         setTooltipState((prev) => !prev)
     }
-
-    // console.log(dataList)
-
-    // const description = dataList.list.map(
-    //     (item, index) => item.column_description,
-    // )
-
-    // console.log(typeof inputValue[2].value)
-    // console.log(inputValue)
 
     const description = list.map(
         (item) =>
@@ -40,7 +30,6 @@ export default function ListEditBox({ dataList }) {
 
     const changeInputValue = (e, index) => {
         const data = [...inputValue]
-        // data[index].value = e.target.value
         data[index].value =
             e.target.type === 'radio'
                 ? e.target.value === 'true' // "true" 문자열을 boolean true로 변환
@@ -67,10 +56,7 @@ export default function ListEditBox({ dataList }) {
             ...Object.assign({}, ...details),
             [`${category}Name`]: inputName,
         }
-        // if (category === 'smartmeter') {
-        //     delete data.type
-        // }
-        console.log(data)
+
         return data
     }
 
@@ -78,8 +64,7 @@ export default function ListEditBox({ dataList }) {
         try {
             setIsLoading(true)
             const data = processData()
-            const response = await listAPI.updateList({ category, data })
-            console.log(response.data)
+            listAPI.updateList({ category, data })
             setIsLoading(false)
             navigate(`/house/${houseId}/${category}`)
         } catch (error) {
@@ -91,24 +76,16 @@ export default function ListEditBox({ dataList }) {
     const confirmEdit = async (e) => {
         e.preventDefault()
         // 리스트 내용 수정 요청
-        console.log('수정')
         updateList()
-        // console.log(inputValue)
-        // try {
-        //     const response = await listAPI.updateList({ category, data })
-        // } catch (error) {
-        //     console.error(error)
-        // }
     }
 
     const deleteData = async () => {
-        // console.log(list)
         try {
-            const response = await listAPI.deleteList({
+            await listAPI.deleteList({
                 category: category,
                 id: dataList.id,
             })
-            console.log(response.data)
+            // 삭제하고 이전 페이지로 이동
             navigate(-1)
         } catch (error) {
             console.error(error)
@@ -188,6 +165,7 @@ export default function ListEditBox({ dataList }) {
                             <p className="text-xl font-medium text-[#767676]">
                                 {item.name}
                             </p>
+                            {/* 정해진 입력타입이 boolean이 아니라면 */}
                             {inputValue[index].typeof !== 'Boolean' ? (
                                 <input
                                     type={`${inputValue[index].typeof === 'String' ? 'text' : inputValue[index].typeof === 'Integer' || inputValue[index].typeof === 'Float' ? 'number' : ''}`}
@@ -197,10 +175,11 @@ export default function ListEditBox({ dataList }) {
                                     className="w-5 flex-1 rounded border border-[#767676] px-2 text-right text-3xl font-bold"
                                 />
                             ) : (
+                                // 정해진 입력값이 boolean이라면 true/false 중 선택하도록
                                 <fieldset className="flex w-full justify-end gap-1.5 text-2xl">
                                     <input
                                         type="radio"
-                                        id="contactChoice1"
+                                        id="choice1"
                                         name={inputValue[index].name}
                                         value="true"
                                         // 현재 값이 true인지 확인
@@ -211,10 +190,10 @@ export default function ListEditBox({ dataList }) {
                                             changeInputValue(e, index)
                                         }
                                     />
-                                    <label htmlFor="contactChoice1">true</label>
+                                    <label htmlFor="choice1">true</label>
                                     <input
                                         type="radio"
-                                        id="contactChoice2"
+                                        id="choice2"
                                         name={inputValue[index].name}
                                         value="false"
                                         // 현재 값이 false인지 확인
@@ -225,9 +204,7 @@ export default function ListEditBox({ dataList }) {
                                             changeInputValue(e, index)
                                         }
                                     />
-                                    <label htmlFor="contactChoice2">
-                                        false
-                                    </label>
+                                    <label htmlFor="choice2">false</label>
                                 </fieldset>
                             )}
                             <p

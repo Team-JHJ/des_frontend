@@ -19,7 +19,6 @@ export default function Tooltip({ tooltipState, data }) {
             <div className="absolute -top-3 right-[0.98rem] z-[1] h-3 w-7 overflow-hidden before:absolute before:left-1/2 before:top-0 before:h-6 before:w-6 before:origin-top-left before:rotate-45 before:border before:border-black before:bg-white"></div>
             {/* 설명 부분 div */}
             <div className="flex flex-col">
-                {/*<p>제목</p>*/}
                 {data
                     ? data.map((item, index) => (
                           <div className="whitespace-nowrap" key={index}>

@@ -12,8 +12,6 @@ const houseSlice = createSlice({
         setHouse: (state, action) => {
             state.houseId = action.payload.houseId
             state.houseName = action.payload.houseName
-            console.log(action.payload.houseName)
-            console.log(`수정완료`)
         },
     },
 })

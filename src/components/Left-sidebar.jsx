@@ -5,15 +5,8 @@ import { useSelector } from 'react-redux'
 export default function LeftSidebar() {
     const navigate = useNavigate()
     const location = useLocation().pathname
-    // const path = location.split('/')
     const pathname = useParams()
-    // console.log(pathname)
     const houseId = useSelector((state) => state.houseSlice.houseId)
-
-    const navigateMain = () => {
-        navigate('/')
-        window.location.reload()
-    }
 
     return (
         <div className="fixed bottom-0 left-0 top-0 flex h-full w-80 flex-col border-r-2 border-[#ECECEE] text-lg">
@@ -22,7 +15,6 @@ export default function LeftSidebar() {
                     {/*<div*/}
                     {/*    onClick={navigateMain}*/}
                     {/*>*/}
-
                     <img src={logo} alt="des logo" className="h-14 w-14" />
                     <div>
                         <p className="text-2xl font-bold">DES</p>
