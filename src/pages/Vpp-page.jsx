@@ -142,9 +142,10 @@ export default function VppPage() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-6 p-6">
-                        {dataList.columns.details.map((data, index) => (
-                            <VppListsBox key={index} dataList={data} />
-                        ))}
+                        {Array.isArray(dataList?.columns?.details) &&
+                            dataList.columns.details.map((data, index) => (
+                                <VppListsBox key={index} dataList={data} />
+                            ))}
                         {/*<ListsBox dataList={dataList.columns} />*/}
                     </div>
                 </>

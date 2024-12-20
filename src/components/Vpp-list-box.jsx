@@ -85,40 +85,41 @@ export default function VppListsBox({ dataList }) {
                 </div>
             </div>
             <div className="flex flex-wrap gap-[2%] px-4 py-3">
-                {dataList.map((item, index) => (
-                    <div
-                        key={index}
-                        className={`flex w-[40%] items-center justify-between overflow-hidden px-3 pb-1 pt-3`}
-                    >
-                        <p className="min-w-[20%] overflow-hidden overflow-ellipsis text-xl font-medium text-[#767676]">
-                            {item.name}
-                        </p>
-                        <div className="flex items-baseline gap-1">
-                            <p
-                                className={`text-nowrap text-3xl font-bold ${
-                                    Number.isInteger(item.value)
-                                        ? index % 3 === 0
-                                            ? 'text-[#32ADE6]'
-                                            : index % 3 === 1
-                                              ? 'text-[#14AE5C]'
-                                              : index % 3 === 2
-                                                ? 'text-[#E8B931]'
-                                                : ''
-                                        : ''
-                                }`}
-                            >
-                                {typeof item.value === 'boolean'
-                                    ? item.value.toString()
-                                    : item.value}
+                {dataList &&
+                    dataList.map((item, index) => (
+                        <div
+                            key={index}
+                            className={`flex w-[40%] items-center justify-between overflow-hidden px-3 pb-1 pt-3`}
+                        >
+                            <p className="min-w-[20%] overflow-hidden overflow-ellipsis text-xl font-medium text-[#767676]">
+                                {item.name}
                             </p>
-                            <p className="text-xl">
-                                {item.description.match(/\((.*?)\)/)
-                                    ? item.description.match(/\((.*?)\)/)[1]
-                                    : null}
-                            </p>
+                            <div className="flex items-baseline gap-1">
+                                <p
+                                    className={`text-nowrap text-3xl font-bold ${
+                                        Number.isInteger(item.value)
+                                            ? index % 3 === 0
+                                                ? 'text-[#32ADE6]'
+                                                : index % 3 === 1
+                                                  ? 'text-[#14AE5C]'
+                                                  : index % 3 === 2
+                                                    ? 'text-[#E8B931]'
+                                                    : ''
+                                            : ''
+                                    }`}
+                                >
+                                    {typeof item.value === 'boolean'
+                                        ? item.value.toString()
+                                        : item.value}
+                                </p>
+                                <p className="text-xl">
+                                    {item.description.match(/\((.*?)\)/)
+                                        ? item.description.match(/\((.*?)\)/)[1]
+                                        : null}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
             </div>
         </div>
     )
