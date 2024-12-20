@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GoQuestion } from 'react-icons/go'
 import ListsBox from '@/components/List-box.jsx'
 import Tooltip from '@/components/Tooltip.jsx'
@@ -8,6 +8,9 @@ import Loading from '@/components/Loading.jsx'
 export default function VppPage() {
     const [vppDetail, setVppDetail] = useState('')
     const [tooltipState, setTooltipState] = useState(false)
+    const tooltipRef = useRef(null)
+    const tooltipButtonRef = useRef(null)
+    const [isTooltipOpen, setIsTooltipOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [dataList, setDataList] = useState({
         columns: {
@@ -17,6 +20,10 @@ export default function VppPage() {
 
     const changeInput = (e) => {
         setVppDetail(e.target.value)
+    }
+
+    const toggleTooltip = () => {
+        setTooltipState((prev) => !prev)
     }
 
     const focusTooltip = () => {
@@ -51,6 +58,26 @@ export default function VppPage() {
             alert('오류가 발생했습니다. 다시 시도해주세요!')
         }
     }
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // 툴팁 버튼이나 툴팁을 클릭한 경우가 아니라면 툴팁 닫기
+            if (
+                tooltipState &&
+                !tooltipRef.current?.contains(event.target) &&
+                !tooltipButtonRef.current?.contains(event.target)
+            ) {
+                setTooltipState(false)
+            }
+        }
+
+        // 문서 전체에 이벤트 리스너를 추가
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [tooltipState])
 
     useEffect(() => {
         getVpp()
@@ -89,12 +116,15 @@ export default function VppPage() {
                                 // 마우스 올리면 나타나고 내리면 사라지게
                                 // onMouseOver={focuseTooltip}
                                 // onMouseOut={focuseTooltip}
-                                onClick={focusTooltip}
+                                // onClick={focusTooltip}
+                                ref={tooltipButtonRef}
+                                onClick={toggleTooltip}
                             >
                                 <GoQuestion size={26} />
                                 <Tooltip
                                     tooltipState={tooltipState}
                                     data={dataList.category}
+                                    ref={tooltipRef}
                                 />
                             </div>
                         </div>

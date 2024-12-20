@@ -1,7 +1,7 @@
 import Icon from '@/components/Icon.jsx'
 import { GoQuestion } from 'react-icons/go'
 import Tooltip from '@/components/Tooltip.jsx'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export default function ListsBox({ dataList }) {
@@ -10,6 +10,8 @@ export default function ListsBox({ dataList }) {
     const house = pathname.houseId
     const category = pathname.category
     const [tooltipState, setTooltipState] = useState(false)
+    const tooltipRef = useRef(null)
+    const tooltipButtonRef = useRef(null)
     const list = dataList.details
 
     const focusTooltip = () => {
@@ -30,6 +32,30 @@ export default function ListsBox({ dataList }) {
             // replace: true,
         })
     }
+
+    const toggleTooltip = () => {
+        setTooltipState((prev) => !prev)
+    }
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            // 툴팁 버튼이나 툴팁을 클릭한 경우가 아니라면 툴팁 닫기
+            if (
+                tooltipState &&
+                !tooltipRef.current?.contains(event.target) &&
+                !tooltipButtonRef.current?.contains(event.target)
+            ) {
+                setTooltipState(false)
+            }
+        }
+
+        // 문서 전체에 이벤트 리스너를 추가
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [tooltipState])
 
     return (
         <div className="w-full rounded-md border-2 border-[#D9D9D9]">
@@ -62,12 +88,14 @@ export default function ListsBox({ dataList }) {
                         // 마우스 올리면 나타나고 내리면 사라지게
                         // onMouseOver={focuseTooltip}
                         // onMouseOut={focuseTooltip}
-                        onClick={focusTooltip}
+                        ref={tooltipButtonRef}
+                        onClick={toggleTooltip}
                     >
                         <GoQuestion size={26} />
                         <Tooltip
                             tooltipState={tooltipState}
                             data={description}
+                            ref={tooltipRef}
                         />
                     </div>
                 </div>

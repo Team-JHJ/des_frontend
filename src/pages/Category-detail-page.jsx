@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { GoQuestion } from 'react-icons/go'
 import Tooltip from '@/components/Tooltip.jsx'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import AddListModal from '@/components/Add-list-modal.jsx'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import ListsBox from '@/components/List-box.jsx'
@@ -22,6 +22,8 @@ export default function CategoryDetailPage() {
 
     const [categoryName, setCategoryName] = useState('')
     const [tooltipState, setTooltipState] = useState(false)
+    const tooltipRef = useRef(null)
+    const tooltipButtonRef = useRef(null)
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [dataList, setDataList] = useState([])
@@ -33,6 +35,10 @@ export default function CategoryDetailPage() {
 
     // 툴팁 활성화/비활성화
     const focusTooltip = () => {
+        setTooltipState((prev) => !prev)
+    }
+
+    const toggleTooltip = () => {
         setTooltipState((prev) => !prev)
     }
 
@@ -274,6 +280,26 @@ export default function CategoryDetailPage() {
     }
 
     useEffect(() => {
+        const handleClickOutside = (event) => {
+            // 툴팁 버튼이나 툴팁을 클릭한 경우가 아니라면 툴팁 닫기
+            if (
+                tooltipState &&
+                !tooltipRef.current?.contains(event.target) &&
+                !tooltipButtonRef.current?.contains(event.target)
+            ) {
+                setTooltipState(false)
+            }
+        }
+
+        // 문서 전체에 이벤트 리스너를 추가
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [tooltipState])
+
+    useEffect(() => {
         getList(houseId, category)
     }, [category, houseId])
 
@@ -317,16 +343,18 @@ export default function CategoryDetailPage() {
                                 {category} 추가
                             </button>
                             <div
-                                className="relative my-auto cursor-pointer"
+                                className="relative z-20 my-auto cursor-pointer"
                                 // 마우스 올리면 나타나고 내리면 사라지게
                                 // onMouseOver={focuseTooltip}
                                 // onMouseOut={focuseTooltip}
-                                onClick={focusTooltip}
+                                ref={tooltipButtonRef}
+                                onClick={toggleTooltip}
                             >
                                 <GoQuestion size={26} />
                                 <Tooltip
                                     tooltipState={tooltipState}
                                     data={description}
+                                    ref={tooltipRef}
                                 />
                             </div>
                         </div>

@@ -1,4 +1,6 @@
-export default function Tooltip({ tooltipState, data }) {
+import { forwardRef } from 'react'
+
+const Tooltip = forwardRef(function Tooltip({ tooltipState, data }, ref) {
     const example = [
         { name: 'generation_capacity', description: '발전 용량 정보(%)' },
         { name: 'generation_capacity', description: '발전 용량 정보(%)' },
@@ -8,6 +10,7 @@ export default function Tooltip({ tooltipState, data }) {
 
     return (
         <div
+            ref={ref}
             className={`absolute -right-[1.1rem] top-[160%] z-10 box-border min-w-48 cursor-default rounded-lg border border-black bg-white p-4 transition-opacity duration-300 ease-out ${
                 tooltipState ? 'visible opacity-100' : 'invisible opacity-0'
             }`}
@@ -41,4 +44,8 @@ export default function Tooltip({ tooltipState, data }) {
             </div>
         </div>
     )
-}
+})
+
+Tooltip.displayName = 'Tooltip'
+
+export default Tooltip
