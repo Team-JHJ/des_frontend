@@ -30,17 +30,6 @@ export default function LeftSidebar() {
                     <ul>
                         <li className="border-b border-[#D3D3D3FF] p-2">
                             <Link
-                                to="/"
-                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
-                                    location === '/' &&
-                                    'border-l-8 border-l-[#B0C4DE] pl-2'
-                                }`}
-                            >
-                                Home
-                            </Link>
-                        </li>
-                        <li className="border-b border-[#D3D3D3FF] p-2">
-                            <Link
                                 to="/vpp"
                                 className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
                                     location === '/vpp' &&
@@ -48,6 +37,17 @@ export default function LeftSidebar() {
                                 }`}
                             >
                                 VPP
+                            </Link>
+                        </li>
+                        <li className="border-b border-[#D3D3D3FF] p-2">
+                            <Link
+                                to="/"
+                                className={`block rounded pb-2.5 pl-3.5 pt-3.5 hover:bg-[#C6D3E799] ${
+                                    location === '/' &&
+                                    'border-l-8 border-l-[#B0C4DE] pl-2'
+                                }`}
+                            >
+                                Home
                             </Link>
                         </li>
                     </ul>
