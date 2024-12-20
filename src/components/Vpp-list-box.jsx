@@ -51,7 +51,7 @@ export default function VppListsBox({ dataList }) {
     }, [tooltipState])
 
     return (
-        <div className="w-[48.5%] rounded-md border-2 border-[#D9D9D9]">
+        <div className="w-[32%] rounded-md border-2 border-[#D9D9D9]">
             <div className="flex h-12 items-center justify-between rounded-t border-b border-[#D9D9D9] bg-[#F3F3F3] px-4 py-2.5">
                 <div className="flex items-center gap-1">
                     {/*<Icon menu={'vpp'} size={23} />*/}
