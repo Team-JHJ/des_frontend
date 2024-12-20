@@ -141,7 +141,7 @@ export default function VppPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-6 p-6">
+                    <div className="flex flex-wrap justify-between gap-y-4 p-6">
                         {Array.isArray(dataList?.columns?.details) &&
                             dataList.columns.details.map((data, index) => (
                                 <VppListsBox key={index} dataList={data} />
