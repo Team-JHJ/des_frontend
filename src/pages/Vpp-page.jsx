@@ -4,6 +4,7 @@ import ListsBox from '@/components/List-box.jsx'
 import Tooltip from '@/components/Tooltip.jsx'
 import vppAPI from '@/api/vpp.js'
 import Loading from '@/components/Loading.jsx'
+import VppListsBox from '@/components/Vpp-list-box.jsx'
 
 export default function VppPage() {
     const [vppDetail, setVppDetail] = useState('')
@@ -89,8 +90,18 @@ export default function VppPage() {
                 <Loading />
             ) : (
                 <>
-                    <div className="flex items-center justify-end border-b-2 border-[#ECECEE] px-6 py-3">
-                        {/*<p className="text-2xl font-bold">VPP</p>*/}
+                    <div className="flex items-center justify-between border-b-2 border-[#ECECEE] px-6 py-3">
+                        <div className="flex items-center gap-2.5">
+                            <p className="text-2xl font-bold">VPP</p>
+                            <div
+                                className={`mx-1 h-4 w-4 rounded-full ${dataList.isFault ? 'bg-[#FF3B30]' : 'bg-[#007AFF]'}`}
+                            />
+                            <p
+                                className={`text-sm text-[#909090] ${dataList.battery ? 'block' : 'hidden'}`}
+                            >
+                                {dataList.battery}%
+                            </p>
+                        </div>
                         <div className="flex gap-3">
                             {/*<form*/}
                             {/*    action=""*/}
@@ -130,7 +141,10 @@ export default function VppPage() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-6 p-6">
-                        <ListsBox dataList={dataList.columns} />
+                        {dataList.columns.details.map((data, index) => (
+                            <VppListsBox key={index} dataList={data} />
+                        ))}
+                        {/*<ListsBox dataList={dataList.columns} />*/}
                     </div>
                 </>
             )}
