@@ -1,0 +1,26 @@
+services:
+  backend:
+    image: kjeok/des_backend:latest
+    container_name: des_backend
+    ports:
+      - "8080:8080"
+    networks:
+      - des_network
+
+  frontend:
+    image: kjeok/des_frontend:latest
+    container_name: des_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - des_network
+    environment:
+      - VITE_BACKEND_URL=http://43.201.7.138:8080
+    # env_file:
+    #   - ./.env
+
+networks:
+  des_network:
+    name: des_network
+    driver: bridge
+    external: true
