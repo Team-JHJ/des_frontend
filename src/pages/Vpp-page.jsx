@@ -17,6 +17,7 @@ export default function VppPage() {
         columns: {
             details: [], // 필요한 초기 구조 설정
         },
+        category: [], // category 초기값을 빈 배열로 설정
     })
 
     const changeInput = (e) => {
