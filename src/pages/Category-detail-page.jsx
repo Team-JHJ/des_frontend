@@ -4,21 +4,16 @@ import { GoQuestion } from 'react-icons/go'
 import Tooltip from '@/components/Tooltip.jsx'
 import { useEffect, useRef, useState } from 'react'
 import AddListModal from '@/components/Add-list-modal.jsx'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ListsBox from '@/components/List-box.jsx'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import listAPI from '@/api/list.js'
 import Loading from '@/components/Loading.jsx'
 
 export default function CategoryDetailPage() {
-    // const navigate = useNavigate()
     const houseId = useSelector((state) => state.houseSlice.houseId)
-    // console.log(houseId)
-    // const dispatch = useDispatch()
-    // const location = useLocation().pathname
     const pathname = useParams()
     const category = pathname.category
-    // const houseId = pathname.houseId
 
     const [categoryName, setCategoryName] = useState('')
     const [tooltipState, setTooltipState] = useState(false)

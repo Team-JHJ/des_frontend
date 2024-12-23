@@ -1,9 +1,8 @@
 import logo from '@/assets/img/deslogo.png'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export default function LeftSidebar() {
-    const navigate = useNavigate()
     const location = useLocation().pathname
     const pathname = useParams()
     const houseId = useSelector((state) => state.houseSlice.houseId)
@@ -12,9 +11,6 @@ export default function LeftSidebar() {
         <div className="fixed bottom-0 left-0 top-0 flex h-full w-80 flex-col border-r-2 border-[#ECECEE] text-lg">
             <div className="flex h-28 items-center border-b-2 px-8">
                 <a href="/" className="flex cursor-pointer items-center gap-3">
-                    {/*<div*/}
-                    {/*    onClick={navigateMain}*/}
-                    {/*>*/}
                     <img src={logo} alt="des logo" className="h-14 w-14" />
                     <div>
                         <p className="text-2xl font-bold">DES</p>
@@ -22,7 +18,6 @@ export default function LeftSidebar() {
                             for Jeju Univ
                         </p>
                     </div>
-                    {/*</div>*/}
                 </a>
             </div>
             <nav className="flex flex-1 flex-col overflow-y-auto px-7 pb-6 pt-3">

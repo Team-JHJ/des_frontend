@@ -130,7 +130,6 @@ export default function ListEditBox({ dataList }) {
                             onChange={(e) => setInputName(e.target.value)}
                             className="rounded border border-[#767676] px-2 text-xl font-bold"
                         />
-                        {/*<p className="text-xl font-bold">{dataList.name}</p>*/}
                         <div
                             className={`mx-1 h-4 w-4 rounded-full ${dataList.isFault ? 'bg-[#FF3B30]' : 'bg-[#007AFF]'}`}
                         />

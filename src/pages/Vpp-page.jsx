@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { GoQuestion } from 'react-icons/go'
-import ListsBox from '@/components/List-box.jsx'
 import Tooltip from '@/components/Tooltip.jsx'
 import vppAPI from '@/api/vpp.js'
 import Loading from '@/components/Loading.jsx'
@@ -25,10 +24,6 @@ export default function VppPage() {
     }
 
     const toggleTooltip = () => {
-        setTooltipState((prev) => !prev)
-    }
-
-    const focusTooltip = () => {
         setTooltipState((prev) => !prev)
     }
 
@@ -125,10 +120,6 @@ export default function VppPage() {
                             {/*</form>*/}
                             <div
                                 className="relative z-20 my-auto cursor-pointer"
-                                // 마우스 올리면 나타나고 내리면 사라지게
-                                // onMouseOver={focuseTooltip}
-                                // onMouseOut={focuseTooltip}
-                                // onClick={focusTooltip}
                                 ref={tooltipButtonRef}
                                 onClick={toggleTooltip}
                             >
@@ -146,7 +137,6 @@ export default function VppPage() {
                             dataList.columns.details.map((data, index) => (
                                 <VppListsBox key={index} dataList={data} />
                             ))}
-                        {/*<ListsBox dataList={dataList.columns} />*/}
                     </div>
                 </>
             )}

@@ -1,23 +1,14 @@
-import Icon from '@/components/Icon.jsx'
 import { GoQuestion } from 'react-icons/go'
 import Tooltip from '@/components/Tooltip.jsx'
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 export default function VppListsBox({ dataList }) {
     // const navigate = useNavigate()
     const pathname = useParams()
-    const house = pathname.houseId
-    const category = pathname.category
     const [tooltipState, setTooltipState] = useState(false)
     const tooltipRef = useRef(null)
     const tooltipButtonRef = useRef(null)
-    const list = dataList.details
-    // const description = dataList.description
-
-    // const focusTooltip = () => {
-    //     setTooltipState((prev) => !prev)
-    // }
 
     const description = [
         new Object({
@@ -53,18 +44,7 @@ export default function VppListsBox({ dataList }) {
     return (
         <div className="w-[32%] rounded-md border-2 border-[#D9D9D9]">
             <div className="flex h-12 items-center justify-between rounded-t border-b border-[#D9D9D9] bg-[#F3F3F3] px-4 py-2.5">
-                <div className="flex items-center gap-1">
-                    {/*<Icon menu={'vpp'} size={23} />*/}
-                    {/*<p className="text-xl font-bold">{dataList.name}</p>*/}
-                    {/*<div*/}
-                    {/*    className={`mx-1 h-4 w-4 rounded-full ${dataList.isFault ? 'bg-[#FF3B30]' : 'bg-[#007AFF]'}`}*/}
-                    {/*/>*/}
-                    {/*<p*/}
-                    {/*    className={`text-sm text-[#909090] ${dataList.battery ? 'block' : 'hidden'}`}*/}
-                    {/*>*/}
-                    {/*    {dataList.battery}%*/}
-                    {/*</p>*/}
-                </div>
+                <div className="flex items-center gap-1"></div>
                 <div className="flex h-full items-center gap-3">
                     <div
                         className="relative my-auto cursor-pointer"
