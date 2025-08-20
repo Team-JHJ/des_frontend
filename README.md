@@ -46,6 +46,8 @@ react-router-dom v6 사용
 ├── /house/:id/:category      # 카테고리별 상세
 └── /house/:id/:category/edit # 데이터 편집
 ```
+## 시스템 아키텍처
+<img width="600" height="371" alt="398902859-2649e6f5-2fc8-4ae8-96e9-80e583a1f039" src="https://github.com/user-attachments/assets/92dd80d4-18f4-4aff-b944-f71dadf91183" />
 
 ## 😤 문제 및 해결 방안
 
