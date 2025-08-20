@@ -44,9 +44,9 @@ export default function AddListModal({ closeModal, category, onSuccess }) {
                 type: choiceCategory,
             })
             if (response.status === 200 || response.status === 201) {
-                onSuccess()
+                await onSuccess()
             }
-            setTimeout(() => setIsLoading(false), 1000)
+            setIsLoading(false)
             // 추가 요청처리 완료 후 모달창 닫기
             closeModal()
         } catch (error) {

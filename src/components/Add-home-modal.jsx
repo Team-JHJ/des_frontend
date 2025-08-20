@@ -13,7 +13,7 @@ export default function AddHomeModal({ closeModal, onSuccess }) {
             setIsLoading(true)
             const response = await houseAPI.addHouse(houseName)
             if (response.status === 200 || response.status === 201) {
-                onSuccess()
+                await onSuccess()
             }
             setIsLoading(false)
             // 추가 요청처리 완료 후 모달창 닫기
